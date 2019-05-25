@@ -75,19 +75,16 @@ function returnCounter(number = 0) {
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray() {
-  var arr = [];
+    var arr = [];
 
-  for (let i = 0; i < arguments.length; i++) {
-    arr[i] = arguments[i];
-    console.log(arr);
-  }
+    for (let i = 0; i < arguments.length; i++) {
+        arr[i] = arguments[i];
+        
+    }
 
-  return arr;
-
+    return arr;
 
 }
-
-returnArgumentsArray(1, 2, 3, 5, 8, "hi");
 
 /*
  Задание 6 *:
@@ -105,22 +102,14 @@ returnArgumentsArray(1, 2, 3, 5, 8, "hi");
    console.log(newSum()) выведет 6
  */
 function bindFunction(fn) {
-  return fn(arguments);
+    return fn(arguments);
 }
-
-function sum(a, b) {
-  return a + b;
-}
-
-var newSum = bindFunction(sum, 2, 4);
-
-console.log(newSum());
 
 export {
-  returnFirstArgument,
-  sumWithDefaults,
-  returnArgumentsArray,
-  returnFnResult,
-  returnCounter,
-  bindFunction
+    returnFirstArgument,
+    sumWithDefaults,
+    returnArgumentsArray,
+    returnFnResult,
+    returnCounter,
+    bindFunction
 }
