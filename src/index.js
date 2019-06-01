@@ -26,8 +26,8 @@ function forEach(array, fn) {
 function map(array, fn) {
     let newArr = [];
     for(let i = 0; i < array.length; i++) {
-        newArr.push(array[i]);
-        fn(array[i], i, array);
+        newArr[i] = fn(array[i], i, array);
+        
     }
     return newArr;
 }
@@ -41,10 +41,14 @@ function map(array, fn) {
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
  */
 function reduce(array, fn, initial) {
-    let result = initial;
-    for(let i = 0; i < array.length; i++) {
-        fn(result, array[i], i, array)
+    var x = initial || array[0],
+        i = initial ? 0 : 1;
+
+    for (; i < array.length; i++) {
+        x = fn(x, array[i], i, array);
     }
+
+    return x;
 }
 
 /*
