@@ -18,21 +18,28 @@
  */
 function isAllTrue(array, fn) {
     try {
-        Array.isArray(array)
-    } catch (err) {
-        console.log("empty array");
-    }
-   
-    for(let i = 0; i < array.length; i++ ){
-        if(!fn(array[i])) {
-            return false;
-        };
+        if (array.length == 0 || !Array.isArray(array)) {
+            throw new Error('empty array');
+        }
+        if (typeof (fn) != "function") {
+            throw new Error('fn is not a function');
+        }
+
+        for (let i = 0; i < array.length; i++) {
+            if (!fn(array[i])) {
+                return false;
+            };
+        }
+
+        return true;
+
+    } catch (e) {
+        console.log(e.message);
     }
 
-    return true;
 }
 
-console.log(isAllTrue(4, n => n < 10))
+
 
 /*
  Задание 2:
@@ -51,7 +58,26 @@ console.log(isAllTrue(4, n => n < 10))
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
+    try {
+        if (!Array.isArray(array) || array.length == 0) {
+            throw new Error('empty array');
+        } 
+        if (typeof (fn) != "function") {
+            throw new Error('fn is not a function');
+        }
+
+        for (let i = 0; i < array.length; i++) {
+            if (fn(array[i])) {
+                return true;
+            };
+        }
+
+        return false;
+    } catch (e) {
+        console.log(e.message);
+    }
 }
+
 
 /*
  Задание 3:
@@ -64,8 +90,7 @@ function isSomeTrue(array, fn) {
  3.3: Необходимо выбрасывать исключение в случаях:
    - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn) {
-}
+function returnBadArguments(fn) {}
 
 /*
  Задание 4:
@@ -84,8 +109,7 @@ function returnBadArguments(fn) {
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator() {
-}
+function calculator() {}
 
 /* При решении задач, пострайтесь использовать отладчик */
 
