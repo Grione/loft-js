@@ -32,11 +32,6 @@ function isAllTrue(array, fn) {
         }
 
         return true;
-
-    
-        console.log(e.message);
-    
-
 }
 
 /*
@@ -71,9 +66,7 @@ function isSomeTrue(array, fn) {
         }
 
         return false;
-    
-        console.log(e.message);
-    
+ 
 }
 
 
@@ -89,16 +82,22 @@ function isSomeTrue(array, fn) {
    - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn) {
+    let newArr= [];
    
         if (typeof(fn) != "function") {
         throw new Error('fn is not a function');
         }
         for(let i=1; i < arguments.length; i++) {
-            fn(arguments[i]);
+            try {
+                fn(arguments[i]);
+            } catch {
+                newArr.push(arguments[i]);
+            }
+            
         }
-    
-        console.log(e.message);
-     
+
+    return newArr;    
+        
 }
 
 
@@ -120,7 +119,12 @@ function returnBadArguments(fn) {
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
 function calculator(number = 0) {
-    var obj = {};
+    let obj = {};
+
+    if (typeof(number) != "number") {
+        throw new Error('number is not a number');
+    }
+
     obj.sum = function() {
         let result = 0;
         for(let i = 0; i < arguments.length; i++) {
@@ -138,25 +142,34 @@ function calculator(number = 0) {
     }
 
     obj.div = function() {
-        let result = 0;
-        let x = number / arguments[0];
+        if (arguments[0] == 0) {
+            throw new Error('division by 0');
+        }
+        let result = number / arguments[0];
+
         for(let i = 1; i < arguments.length; i++) {
-            result = x / arguments[i];
+            if (arguments[i] == 0) {
+                throw new Error('division by 0');
+            }
+            result = result / arguments[i];
+            
+            
         }
         return result;
     }
 
     obj.mul = function() {
-        let result = 0;
-        for(let i = 0; i < arguments.length; i++) {
+        let result = number * arguments[0];
+        for(let i = 1; i < arguments.length; i++) {
             result = result * arguments[i];
         }
         return result;
     }
 
-    console.log(obj.mul(2, 3))
-    
+    return obj;
+   
 }
+
 
 
 /* При решении задач, пострайтесь использовать отладчик */
