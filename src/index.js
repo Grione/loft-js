@@ -17,7 +17,7 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
 function isAllTrue(array, fn) {
-    try {
+    
         if (array.length == 0 || !Array.isArray(array)) {
             throw new Error('empty array');
         }
@@ -33,13 +33,11 @@ function isAllTrue(array, fn) {
 
         return true;
 
-    } catch (e) {
+    
         console.log(e.message);
-    }
+    
 
 }
-
-
 
 /*
  Задание 2:
@@ -58,7 +56,7 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
-    try {
+    
         if (!Array.isArray(array) || array.length == 0) {
             throw new Error('empty array');
         } 
@@ -73,9 +71,9 @@ function isSomeTrue(array, fn) {
         }
 
         return false;
-    } catch (e) {
+    
         console.log(e.message);
-    }
+    
 }
 
 
@@ -90,7 +88,19 @@ function isSomeTrue(array, fn) {
  3.3: Необходимо выбрасывать исключение в случаях:
    - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn) {}
+function returnBadArguments(fn) {
+   
+        if (typeof(fn) != "function") {
+        throw new Error('fn is not a function');
+        }
+        for(let i=1; i < arguments.length; i++) {
+            fn(arguments[i]);
+        }
+    
+        console.log(e.message);
+     
+}
+
 
 /*
  Задание 4:
@@ -109,7 +119,45 @@ function returnBadArguments(fn) {}
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator() {}
+function calculator(number = 0) {
+    var obj = {};
+    obj.sum = function() {
+        let result = 0;
+        for(let i = 0; i < arguments.length; i++) {
+            result += arguments[i];
+        }
+        return result + number;
+    }
+
+    obj.dif = function() {
+        let result = 0;
+        for(let i = 0; i < arguments.length; i++) {
+            result += arguments[i];
+        }
+        return number - result;
+    }
+
+    obj.div = function() {
+        let result = 0;
+        let x = number / arguments[0];
+        for(let i = 1; i < arguments.length; i++) {
+            result = x / arguments[i];
+        }
+        return result;
+    }
+
+    obj.mul = function() {
+        let result = 0;
+        for(let i = 0; i < arguments.length; i++) {
+            result = result * arguments[i];
+        }
+        return result;
+    }
+
+    console.log(obj.mul(2, 3))
+    
+}
+
 
 /* При решении задач, пострайтесь использовать отладчик */
 
