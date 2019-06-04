@@ -11,6 +11,9 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
+    var element = document.createElement('div');
+    element.innerText = text;
+    return element;
 }
 
 /*
@@ -22,7 +25,8 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
-}
+    where.insertBefore(what, where.firstChild);
+}   
 
 /*
  Задание 3:
