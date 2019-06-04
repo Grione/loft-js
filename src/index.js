@@ -9,6 +9,7 @@
 function forEach(array, fn) {
 
     for (let i = 0; i < array.length; i++) {
+
         fn(array[i], i, array)
     }
 }
@@ -23,7 +24,9 @@ function map(array, fn) {
     let newArr = [];
 
     for (let i = 0; i < array.length; i++) {
+
         newArr[i] = fn(array[i], i, array);
+
     }
 
     return newArr;
@@ -39,6 +42,7 @@ function reduce(array, fn, initial) {
         i = initial ? 0 : 1;
 
     for (; i < array.length; i++) {
+
         x = fn(x, array[i], i, array);
     }
 
@@ -55,10 +59,14 @@ function upperProps(obj) {
     let array = [];
 
     for (var key in obj) {
-        let str = ''; 
+        if (obj.hasOwnProperty(key)) {
+            let str = '';
 
-        str = key.toUpperCase();
-        array.push(str);
+            str = key.toUpperCase();
+
+            array.push(str);
+        }
+
     }
 
     return array;
