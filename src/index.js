@@ -81,7 +81,8 @@ function returnBadArguments(fn) {
             fn(arguments[i]);
         } catch {
             newArr.push(arguments[i]);
-        };
+        }
+
     }
 
     return newArr;
@@ -126,15 +127,13 @@ function calculator(number = 0) {
         let result = 0;
 
         result = number / arguments[0];
-        for (let i = 0; i < arguments.length; i++) {
+        for (let i = 1; i < arguments.length; i++) {
             if (arguments[i] == 0) {
                 throw new Error('division by 0');
             }
-        }
-
-        for (let i = 1; i < arguments.length; i++) {
             result = result / arguments[i]
         }
+
         return result;
     }
 
