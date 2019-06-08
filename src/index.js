@@ -12,7 +12,9 @@
  */
 function createDivWithText(text) {
     var element = document.createElement('div');
+
     element.innerText = text;
+
     return element;
 }
 
@@ -54,7 +56,7 @@ function findAllPSiblings(where) {
     
     for (let node of body.children) {
        
-        if ( node.tagName == "P") {
+        if ( node.tagName == 'P') {
             arr.push(node.previousElementSibling);
         } 
     }
