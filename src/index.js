@@ -48,6 +48,18 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
+    var arr = [];
+
+    let body = where; 
+    
+    for (let node of body.children) {
+       
+        if ( node.tagName == "P") {
+            arr.push(node.previousElementSibling);
+        } 
+    }
+
+    return arr; 
 }
 
 /*
@@ -70,7 +82,7 @@ function findAllPSiblings(where) {
 function findError(where) {
     var result = [];
 
-    for (var child of where.childNodes) {
+    for (var child of where.children) {
         result.push(child.innerText);
     }
 
@@ -90,6 +102,12 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
+
+    for (let child of where.childNodes) {
+        if (child.nodeType === 3) {
+            where.removeChild(child);
+        }
+    }
 }
 
 /*
