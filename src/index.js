@@ -17,14 +17,16 @@ function isAllTrue(array, fn) {
     if (array.length == 0 || !Array.isArray(array)) {
         throw new Error('empty array');
     }
-    if (typeof (fn) != "function") {
+    if (typeof (fn) != 'function') {
         throw new Error('fn is not a function');
     }
 
     for (let i = 0; i < array.length; i++) {
         if (!fn(array[i])) {
+
             return false;
-        };
+
+        }
     }
 
     return true;
@@ -47,12 +49,13 @@ function isSomeTrue(array, fn) {
     if (!Array.isArray(array) || array.length == 0) {
         throw new Error('empty array');
     }
-    if (typeof (fn) != "function") {
+    if (typeof (fn) != 'function') {
         throw new Error('fn is not a function');
     }
 
     for (let i = 0; i < array.length; i++) {
         if (fn(array[i])) {
+
             return true;
         }
     }
@@ -60,7 +63,6 @@ function isSomeTrue(array, fn) {
     return false;
 
 }
-
 
 /*
 Задание 3:
@@ -73,13 +75,14 @@ function isSomeTrue(array, fn) {
 function returnBadArguments(fn) {
     let newArr = [];
 
-    if (typeof (fn) != "function") {
+    if (typeof (fn) != 'function') {
         throw new Error('fn is not a function');
     }
     for (let i = 1; i < arguments.length; i++) {
         try {
             fn(arguments[i]);
-        } catch {
+        } catch (error) {
+
             newArr.push(arguments[i]);
         }
 
@@ -104,22 +107,26 @@ function returnBadArguments(fn) {
 function calculator(number = 0) {
     var obj = {};
 
-    if (typeof (number) != "number") {
+    if (typeof (number) != 'number') {
         throw new Error('number is not a number');
     }
     obj.sum = function () {
         let result = 0;
+
         for (let i = 0; i < arguments.length; i++) {
             result += arguments[i];
         }
+
         return result + number;
     }
 
     obj.dif = function () {
         let result = 0;
+
         for (let i = 0; i < arguments.length; i++) {
             result += arguments[i];
         }
+
         return number - result;
     }
 
@@ -151,7 +158,6 @@ function calculator(number = 0) {
     return obj;
 
 }
-
 
 /* При решении задач, пострайтесь использовать отладчик */
 
