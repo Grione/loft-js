@@ -41,8 +41,7 @@ function loadAndSortTowns() {
                 console.log('Не удалось загрузить список');
             } else {
                 const cities = JSON.parse(xhr.responseText);
-
-                resolve(cities.sort(function (a, b) {
+                cities.sort(function (a, b) {
                     if (a.name > b.name) {
                         return 1
                     }
@@ -52,7 +51,8 @@ function loadAndSortTowns() {
 
                     return 0;
 
-                }));
+                })
+                resolve(cities);
 
             }
         };

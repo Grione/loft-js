@@ -37,35 +37,38 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
-    return new Promise(function(resolve) {
+    return new Promise(function (resolve) {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', ' https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
         xhr.send();
 
-        loadingBlock.style.display = "none";
-
-        xhr.upload.onprogress = function() {
-           loadingBlock.style.display = "block";
-          }
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (xhr.status === 404) {
                 alert("Не удалось загрузить города");
                 const newButton = document.createElement('button');
                 newButton.textContent = "Повторить";
                 homeworkContainer.appendChild(newButton);
             } else {
-               const cities = JSON.parse(xhr.responseText);
+                const cities = JSON.parse(xhr.responseText);
 
-               var towns = [];
+                cities.sort(function (a, b) {
+                    if (a.name > b.name) {
+                        return 1
+                    }
+                    if (a.name < b.name) {
+                        return -1
+                    }
 
-               for (let city of cities) {
-                    towns.push(city.name);
-               }
+                    return 0;
 
-               resolve(towns.sort());
-               loadingBlock.style.display = "none";
-               filterBlock.style.display = "block";
-               
+                })
+                resolve(cities);
+
+                arr = cities;
+
+                loadingBlock.style.display = "none";
+                filterBlock.style.display = "block";
+
             }
         };
     });
@@ -94,6 +97,8 @@ function isMatching(full, chunk) {
     }
 }
 
+var arr;
+
 /* Блок с надписью "Загрузка" */
 const loadingBlock = homeworkContainer.querySelector('#loading-block');
 /* Блок с текстовым полем и результатом поиска */
@@ -103,7 +108,18 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
-filterInput.addEventListener('keyup', function() {
+filterInput.addEventListener('keyup', function () {
+    let pressChar = String(this.value).toUpperCase();
+
+    filterResult.textContent = "";
+
+    if (pressChar != "") {
+        for (let i = 0; i < arr.length; i++) {
+            if (isMatching(arr[i].name, pressChar)){
+                filterResult.textContent = filterResult.textContent + " " + arr[i].name;
+            }
+        }
+    }
     // это обработчик нажатия кливиш в текстовом поле
 });
 
