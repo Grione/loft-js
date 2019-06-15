@@ -13,8 +13,8 @@ function delayPromise(seconds) {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve();
-        }, seconds*1000)
-    }); 
+        }, seconds * 1000)
+    });
 }
 
 /*
@@ -31,24 +31,29 @@ function delayPromise(seconds) {
    loadAndSortTowns().then(towns => console.log(towns)) // должна вывести в консоль отсортированный массив городов
  */
 function loadAndSortTowns() {
-    return new Promise(function(resolve) {
+    return new Promise(function (resolve) {
         const xhr = new XMLHttpRequest();
+
         xhr.open('GET', ' https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
         xhr.send();
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (xhr.status === 404) {
-                console.log(404)
+                console.log('Не удалось загрузить список');
             } else {
-               const cities = JSON.parse(xhr.responseText);
-               console.log(cities);
-               let towns = [];
+                const cities = JSON.parse(xhr.responseText);
 
-               for (let city of cities) {
-                    towns.push(city.name);
-               }
+                resolve(cities.sort(function (a, b) {
+                    if (a.name > b.name) {
+                        return 1
+                    }
+                    if (a.name < b.name) {
+                        return -1
+                    }
 
-               resolve(towns.sort());
-               console.log(towns);
+                    return 0;
+
+                }));
+
             }
         };
     });

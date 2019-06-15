@@ -37,7 +37,41 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
+    return new Promise(function(resolve) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', ' https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
+        xhr.send();
+
+        loadingBlock.style.display = "none";
+
+        xhr.upload.onprogress = function() {
+           loadingBlock.style.display = "block";
+          }
+        xhr.onload = function() {
+            if (xhr.status === 404) {
+                alert("Не удалось загрузить города");
+                const newButton = document.createElement('button');
+                newButton.textContent = "Повторить";
+                homeworkContainer.appendChild(newButton);
+            } else {
+               const cities = JSON.parse(xhr.responseText);
+
+               var towns = [];
+
+               for (let city of cities) {
+                    towns.push(city.name);
+               }
+
+               resolve(towns.sort());
+               loadingBlock.style.display = "none";
+               filterBlock.style.display = "block";
+               
+            }
+        };
+    });
 }
+
+loadTowns();
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
@@ -51,6 +85,13 @@ function loadTowns() {
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
+    let x = full.toUpperCase();
+    let y = chunk.toUpperCase();
+    if (x.indexOf(y) > -1) {
+        return true
+    } else {
+        return false
+    }
 }
 
 /* Блок с надписью "Загрузка" */
