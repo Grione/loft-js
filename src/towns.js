@@ -39,14 +39,16 @@ const homeworkContainer = document.querySelector('#homework-container');
 function loadTowns() {
     return new Promise(function (resolve) {
         const xhr = new XMLHttpRequest();
+
         xhr.open('GET', ' https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
         xhr.send();
 
         xhr.onload = function () {
             if (xhr.status === 404) {
-                alert("Не удалось загрузить города");
+                alert('Не удалось загрузить города');
                 const newButton = document.createElement('button');
-                newButton.textContent = "Повторить";
+
+                newButton.textContent = 'Повторить';
                 homeworkContainer.appendChild(newButton);
             } else {
                 const cities = JSON.parse(xhr.responseText);
@@ -66,8 +68,8 @@ function loadTowns() {
 
                 arr = cities;
 
-                loadingBlock.style.display = "none";
-                filterBlock.style.display = "block";
+                loadingBlock.style.display = 'none';
+                filterBlock.style.display = 'block';
 
             }
         };
@@ -89,11 +91,15 @@ loadTowns();
  */
 function isMatching(full, chunk) {
     let x = full.toUpperCase();
+
     let y = chunk.toUpperCase();
+
     if (x.indexOf(y) > -1) {
         return true
+
     } else {
         return false
+
     }
 }
 
@@ -111,12 +117,15 @@ const filterResult = homeworkContainer.querySelector('#filter-result');
 filterInput.addEventListener('keyup', function () {
     let pressChar = String(this.value).toUpperCase();
 
-    filterResult.textContent = "";
+    filterResult.innerHTML = '';
 
-    if (pressChar != "") {
+    if (pressChar != '') {
         for (let i = 0; i < arr.length; i++) {
-            if (isMatching(arr[i].name, pressChar)){
-                filterResult.textContent = filterResult.textContent + " " + arr[i].name;
+            if (isMatching(arr[i].name, pressChar)) {
+                let x = document.createElement('div');
+
+                x.textContent = arr[i].name;
+                filterResult.appendChild(x);
             }
         }
     }
