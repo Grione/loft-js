@@ -68,8 +68,11 @@ function createTr(name, value) {
     listTable.addEventListener('click', (e) => {
         let target = e.target;
         if (target.tagName == 'BUTTON') {
-            document.cookie = target.parentNode.parentNode.innerText+"=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-            target.parentNode.parentNode.remove();
+            const tr = target.closest('tr');
+            const name = tr.firstElementChild.textContent;
+            const date = new Date(0);
+            document.cookie = `${name}=; path=/; expires=" ${date.toUTCString()}`
+            tr.remove();
         }
     })
 }
